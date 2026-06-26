@@ -69,10 +69,10 @@ def specialevent():
         time = input("Time (HH:MM): ")
 
         try:
-            datetime.datetime.strptime(time, "%H:%M")
+            datetime.datetime.strptime(time, "%d/%m/%Y %H:%M")
             break
         except ValueError:
-            print("❌ Invalid time. Please use HH:MM (e.g. 09:30 or 18:45).")
+            print("❌ Invalid .Example: 25/12/2026 14:30")
 
     description = input("Description: ")
 
