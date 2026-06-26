@@ -46,24 +46,39 @@ def show_journal():
     print("=================================================")
 
 def specialevent():
- class specialEvent:
-         def __init__(self, event, time, description):
-            self.event = input('event: ')
-            self.time = input('time: ')
-            self.description = input('description: ')
+    class specialEvent:
+        def __init__(self, event, time, description):
+            self.event = event
+            self.time = time
+            self.description = description
 
-         def to_file_string(self):
+        def to_file_string(self):
             return (
                 f"\n🌟 SPECIAL EVENT: {self.event.upper()} 🌟\n"
                 f"Date/Time: {self.time}\n"
                 f"Description: {self.description}\n"
                 "----------------------------------------\n"
             )
-         def __repr__(self):
+
+        def __repr__(self):
             return self.to_file_string()
- entry = specialEvent("", "", "")  
- with open (FILE_NAME, 'a') as file:
-    file.write(str(entry))
+
+    event = input("Event: ")
+
+    while True:
+        time = input("Time (HH:MM): ")
+
+        try:
+            datetime.datetime.strptime(time, "%H:%M")
+            break
+        except ValueError:
+            print("❌ Invalid time. Please use HH:MM (e.g. 09:30 or 18:45).")
+
+    description = input("Description: ")
+
+    entry = specialEvent(event, time, description)
+    with open(FILE_NAME,'a', encoding='UTF-8') as file:
+        file.write(str(entry))
     
 def main():
     while True:
