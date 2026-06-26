@@ -45,41 +45,30 @@ def show_journal():
     print(journal_content)
     print("=================================================")
 
-def create_special_journal():
+def specialevent():
+ class specialEvent:
+         def __init__(self, event, time, description):
+            self.event = input('event: ')
+            self.time = input('time: ')
+            self.description = input('description: ')
 
-    date_format = "%Y-%m-%d %H:%M"
-
-    sepcial_journal = {
-        'event': '',
-        'time': '',
-        'description' : ''
-    }
-
-    sepcial_journal['event'] = input('event:')
-    sepcial_journal['description'] = input('describe your event:')
-    sepcial_journal['time'] = input("Enter date and time (YYYY-MM-DD HH:MM): ")  
-
-    try:
-     user_datetime = datetime.datetime.strptime(sepcial_journal['time'], date_format)
-     print(f"Success!: {user_datetime}")
-     print(f"succesfuly created event for {sepcial_journal['event']} at {user_datetime.year}:{user_datetime.month}")   
-
-     with open (FILE_NAME, 'a', encoding='utf-8') as file:
-         with open(FILE_NAME, 'a', encoding='utf-8') as file:
-            file.write(f"\n🌟 SPECIAL EVENT: {sepcial_journal['event'].upper()} 🌟\n")
-            file.write(f"Date/Time: {sepcial_journal['time']}\n")
-            file.write(f"Description: {sepcial_journal['description']}\n")
-            file.write("----------------------------------------\n")
-            
-    except ValueError:
-
-     print("Error: The date format did not match YYYY-MM-DD HH:MM.")
-
-
+         def to_file_string(self):
+            return (
+                f"\n🌟 SPECIAL EVENT: {self.event.upper()} 🌟\n"
+                f"Date/Time: {self.time}\n"
+                f"Description: {self.description}\n"
+                "----------------------------------------\n"
+            )
+         def __repr__(self):
+            return self.to_file_string()
+ entry = specialEvent("", "", "")  
+ with open (FILE_NAME, 'a') as file:
+    file.write(str(entry))
+    
 def main():
     while True:
         print('\n=== MAIN MENU ===')
-  
+
         choice = questionary.select(
             "What would you like to do?",
             choices=['Write Journal', 'Show Journal', 'Create Special Journal', 'Close Journal']
@@ -90,7 +79,7 @@ def main():
         elif choice == 'Show Journal':
             show_journal()
         elif choice == 'Create Special Journal':
-            create_special_journal()
+            specialevent()
         elif choice == 'Close Journal':
             print('\nClosing journal. Goodbye! 👋')
             break
