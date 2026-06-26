@@ -61,12 +61,12 @@ def specialevent():
             )
 
         def __repr__(self):
-            return self.to_file_string()
+            return f"SpecialEvent({self.event}, {self.time})"
 
     event = input("Event: ")
 
     while True:
-        time = input("Time (HH:MM): ")
+        time = input("Time dd/mm/yyyy HH:MM: ")
 
         try:
             datetime.datetime.strptime(time, "%d/%m/%Y %H:%M")
@@ -78,7 +78,7 @@ def specialevent():
 
     entry = specialEvent(event, time, description)
     with open(FILE_NAME,'a', encoding='UTF-8') as file:
-        file.write(str(entry))
+        file.write(entry.to_file_string())
     
 def main():
     while True:
