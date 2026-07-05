@@ -1,13 +1,25 @@
-import numpy as np
+import json
 
-arr = np.arange(1, 21, 1)
-squared_arr = arr ** 2
-# np.ndarray.square = lambda self: self ** 2 pls explain
+def square_up_to(n):
+      for i in range(1, n + 1):
+           yield i ** 2
+     
+      
+for num in square_up_to(10):
+   print(num)
 
+# =============================
+# excersise 2
+# =============================
+class SpecialEvent:
+    def __init__(self, title, location, year):
+        self.title = title
+        self.location = location
+        self.year = year
 
-print(f'array: {arr}')
-print(f'squared-array: {squared_arr}')
-print(f'mean:{arr.mean()}')
-print(f'max{arr.max()}')
-print(f'sum{arr.sum()}')
-print(f'shape: {arr.shape}')
+entry = SpecialEvent("Solar Eclipse", "Iceland", 2026)
+
+event_dict = vars(entry)
+
+json_string = json.dumps(event_dict)
+print(json_string)
