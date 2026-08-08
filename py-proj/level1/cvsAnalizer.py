@@ -1,22 +1,20 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
-# 1. LOAD THE DATA
-# names=True reads the header, delimiter=',' splits by commas
-data = np.genfromtxt('py-proj/level1/gta_v_worldwide_sales_player_analytics_2013_2026.csv', delimiter=',', names=True, dtype=None, encoding='utf-8')
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+CSV_PATH = os.path.join(BASE_DIR, 'gta_v_worldwide_sales_player_analytics_2013_2026.csv')
 
-# 2. EXTRACT YOUR TWO NUMERIC COLUMNS
-# (Replace 'Column_Name_A' with the exact header name from your CSV)
-col_a = data['Column_Name_A']
-col_b = data['Column_Name_B']
+data = np.genfromtxt(CSV_PATH, delimiter=',', skip_header=1, usecols=(11, 12), invalid_raise=False)
 
-# 3. DO THE NUMPY MATH
-# Use np.mean(), np.max(), np.min() on both columns
-print(f"Column A Mean: {np.mean(col_a)}")
+units_sold    = data[:, 0]
+gross_revenue = data[:, 1]
 
-# 4. PLOT THE CHART
-plt.scatter(col_a, col_b) # or plt.plot(), plt.bar()
-plt.title("What Your Chart Is About")
-plt.xlabel("Label for A")
-plt.ylabel("Label for B")
+print(f"Units Sold    — mean: {units_sold.mean():.0f}, max: {units_sold.max():.0f}, min: {units_sold.min():.0f}")
+print(f"Gross Revenue — mean: ${gross_revenue.mean():.2f}, max: ${gross_revenue.max():.2f}, min: ${gross_revenue.min():.2f}")
+
+plt.scatter(units_sold, gross_revenue, alpha=0.3, s=10)
+plt.title("Units Sold vs Gross Revenue — GTA V (2013–2026)")
+plt.xlabel("Units Sold")
+plt.ylabel("Gross Revenue (USD)")
 plt.show()
